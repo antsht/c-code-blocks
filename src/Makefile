@@ -2,7 +2,7 @@ BUILD_PATH=../bin/
 CC=gcc
 CFLAGS=-g -Wall -Wextra -Werror
 EXTRAFLAGS=-fsanitize=leak -fsanitize=address -fsanitize=undefined -fsanitize=unreachable -fno-sanitize-recover -fstack-protector 
-TARGETS=get_single_chars
+TARGETS=get_single_chars selfmade_portable_fflush
 
 all: check rebuild
 
@@ -26,11 +26,6 @@ check:
 #	clang-format -n *.h
 	cppcheck --enable=all --suppress=missingIncludeSystem *.c *.h
 
-run:
-	valgrind --tool=memcheck --leak-check=yes --track-origins=yes $(BUILD_PATH)$(TARGETS)
-
-run_no_valgrind:
-	$(BUILD_PATH)$(TARGETS)_extra
 
 
 
